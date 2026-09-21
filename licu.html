@@ -1,0 +1,1510 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Licuadora Profesional Azul - Con Límite de Batidos</title>
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --light-blue: #3399ff;
+            --accent-glow: #00d2ff;
+            --dark-glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --danger-color: #ff3366;
+            --pass-gold: #ffd700;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a192f 0%, #0f2b46 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        header-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            text-align: center;
+            background: linear-gradient(90deg, #3399ff, #00d2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #a0aec0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .counter-badge {
+            background: rgba(51, 153, 255, 0.2);
+            border: 1px solid var(--light-blue);
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--accent-glow);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .battle-pass-btn {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #0f172a;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            transition: transform 0.2s;
+            margin-bottom: 10px;
+        }
+
+        .battle-pass-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+            background: rgba(16, 37, 66, 0.7);
+            border: 1px solid rgba(51, 153, 255, 0.3);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(51, 153, 255, 0.1);
+            max-width: 950px;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .control-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex: 1;
+            max-width: 320px;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            color: var(--accent-glow);
+            border-bottom: 1px solid rgba(51, 153, 255, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .ingredient-btn {
+            background: rgba(0, 86, 179, 0.3);
+            border: 1px solid var(--light-blue);
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+        }
+
+        .ingredient-btn:hover {
+            background: rgba(0, 210, 255, 0.3);
+            box-shadow: 0 0 10px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .ingredient-icon {
+            font-size: 1.4rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-blend {
+            background: linear-gradient(135deg, #0056b3, #00d2ff);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.4);
+        }
+
+        .btn-blend:hover {
+            filter: brightness(1.2);
+        }
+
+        .btn-clear {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-clear:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .speed-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+        }
+
+        .speed-btn {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(51, 153, 255, 0.3);
+            color: #a0aec0;
+            padding: 6px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .speed-btn.active {
+            background: var(--light-blue);
+            color: #fff;
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .workspace {
+            display: flex;
+            align-items: flex-end;
+            gap: 30px;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .blender-station {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .blender-jar-container {
+            position: relative;
+            width: 150px;
+            height: 250px;
+        }
+
+        .jar-lid {
+            width: 120px;
+            height: 25px;
+            background: linear-gradient(90deg, #1a365d, #2a4365, #1a365d);
+            border-radius: 10px 10px 0 0;
+            margin: 0 auto;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.3);
+            transition: background 0.3s;
+        }
+
+        .lid-cap {
+            width: 35px;
+            height: 10px;
+            background: #0f172a;
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px 5px 0 0;
+        }
+
+        .jar-body {
+            width: 150px;
+            height: 210px;
+            background: var(--dark-glass);
+            border: 2px solid var(--glass-border);
+            border-top: none;
+            border-radius: 0 0 25px 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1), 0 10px 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .jar-handle {
+            position: absolute;
+            right: -22px;
+            top: 25px;
+            width: 22px;
+            height: 110px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-left: none;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .jar-contents {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 0%;
+            transition: height 0.4s ease-out, background-color 0.5s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+        }
+
+        .stacked-item {
+            width: 80%;
+            height: 20px;
+            border-radius: 6px;
+            margin: 2px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            animation: dropIn 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        @keyframes dropIn {
+            0% { transform: translateY(-80px) scale(0.5); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .blender-blades {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 15px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .blade {
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #cbd5e1, #f8fafc, #cbd5e1);
+            border-radius: 3px;
+            top: 4px;
+        }
+
+        .blender-blades.spinning .blade {
+            animation: spinBlades 0.1s linear infinite;
+        }
+
+        @keyframes spinBlades {
+            0% { transform: rotate(0deg) scaleX(1); }
+            50% { transform: rotate(180deg) scaleX(0.8); }
+            100% { transform: rotate(360deg) scaleX(1); }
+        }
+
+        .vortex {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(255,255,255,0.15) 70%);
+            display: none;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .blender-blades.spinning ~ .vortex {
+            display: block;
+            animation: vortexSpin 0.4s linear infinite;
+        }
+
+        @keyframes vortexSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .blender-base {
+            width: 170px;
+            height: 85px;
+            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+            border-radius: 15px 15px 25px 25px;
+            border: 2px solid var(--light-blue);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 2px 10px rgba(51, 153, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: -5px;
+            z-index: 4;
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .base-stripe {
+            width: 100%;
+            height: 5px;
+            background: var(--light-blue);
+            box-shadow: 0 0 10px var(--accent-glow);
+            margin-bottom: 10px;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        .power-dial {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #334155 40%, #0f172a 90%);
+            border: 2px solid var(--accent-glow);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+            transition: border-color 0.3s;
+        }
+
+        .power-dial::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 14px;
+            background: var(--accent-glow);
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .power-dial.on {
+            transform: rotate(90deg);
+        }
+
+        /* Robot Assistant */
+        .robot-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin-bottom: 5px;
+        }
+
+        .speech-bubble {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background: #ffffff;
+            color: #0f172a;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            white-space: nowrap;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px 6px 0;
+            border-style: solid;
+            border-color: #ffffff transparent;
+            display: block;
+            width: 0;
+        }
+
+        .robot-container.talking .speech-bubble {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .robot-head {
+            width: 45px;
+            height: 35px;
+            background: linear-gradient(135deg, #3399ff, #0056b3);
+            border: 2px solid var(--accent-glow);
+            border-radius: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.4);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .robot-antenna {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 10px;
+            background: var(--accent-glow);
+        }
+
+        .robot-antenna::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -3px;
+            width: 9px;
+            height: 9px;
+            background: #ff3366;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #ff3366;
+        }
+
+        .robot-eyes {
+            display: flex;
+            gap: 8px;
+        }
+
+        .robot-eye {
+            width: 7px;
+            height: 7px;
+            background: #00d2ff;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #00d2ff;
+        }
+
+        .robot-body {
+            width: 55px;
+            height: 50px;
+            background: linear-gradient(135deg, #1e3a8a, #0f172a);
+            border: 2px solid var(--light-blue);
+            border-radius: 8px;
+            margin-top: 3px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .robot-chest-screen {
+            width: 25px;
+            height: 20px;
+            background: rgba(0, 210, 255, 0.2);
+            border: 1px solid var(--accent-glow);
+            border-radius: 4px;
+        }
+
+        .robot-arm {
+            position: absolute;
+            width: 25px;
+            height: 10px;
+            background: #3399ff;
+            border-radius: 5px;
+            top: 15px;
+            transition: background 0.3s;
+        }
+
+        .robot-arm.left { left: -20px; transform: rotate(-15deg); }
+        .robot-arm.right { right: -20px; transform: rotate(15deg); }
+
+        .robot-cup {
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 45px;
+            height: 55px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+            transition: transform 0.1s, border-color 0.3s;
+        }
+
+        .robot-cup:hover {
+            transform: translateX(-50%) scale(1.05);
+            border-color: var(--accent-glow);
+        }
+
+        .robot-poured-liquid {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 0%;
+            transition: height 1s ease-in-out;
+        }
+
+        /* Sobrecalentamiento */
+        .overheated .blender-base {
+            border-color: var(--danger-color);
+            animation: shake 0.2s infinite;
+        }
+
+        .overheated .base-stripe {
+            background: var(--danger-color);
+            box-shadow: 0 0 15px var(--danger-color);
+        }
+
+        .smoke {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            filter: blur(8px);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .overheated .smoke {
+            animation: riseSmoke 1.5s infinite linear;
+        }
+
+        @keyframes riseSmoke {
+            0% { transform: translate(-50%, 0) scale(0.5); opacity: 0.8; }
+            100% { transform: translate(-50%, -50px) scale(2); opacity: 0; }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            50% { transform: translateX(3px); }
+            75% { transform: translateX(-2px); }
+            100% { transform: translateX(2px); }
+        }
+
+        /* Anuncios en las Esquinas */
+        .corner-ad {
+            position: fixed;
+            width: 220px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 2px solid #ff3366;
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 10px 25px rgba(255, 51, 102, 0.4);
+            z-index: 90;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .corner-ad.top-left { top: 15px; left: 15px; }
+        .corner-ad.top-right { top: 15px; right: 15px; }
+        .corner-ad.bottom-left { bottom: 15px; left: 15px; }
+        .corner-ad.bottom-right { bottom: 15px; right: 15px; }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .ad-title {
+            font-size: 0.8rem;
+            color: #ff3366;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .ad-banner-box {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .btn-remove-ad {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 6px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .payment-modal, .battlepass-modal, .ad-remove-modal {
+            background: #0f172a;
+            border: 2px solid var(--light-blue);
+            padding: 25px;
+            border-radius: 20px;
+            width: 420px;
+            box-shadow: 0 10px 30px rgba(51, 153, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .payment-modal { border-color: var(--danger-color); }
+        .battlepass-modal { border-color: var(--pass-gold); width: 480px; }
+        .ad-remove-modal { border-color: #ff3366; }
+
+        .modal-overlay.active .payment-modal,
+        .modal-overlay.active .battlepass-modal,
+        .modal-overlay.active .ad-remove-modal {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            color: var(--light-blue);
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .payment-modal .modal-title { color: var(--danger-color); }
+        .battlepass-modal .modal-title { color: var(--pass-gold); }
+        .ad-remove-modal .modal-title { color: #ff3366; }
+
+        .modal-desc {
+            font-size: 0.85rem;
+            color: #cbd5e1;
+            text-align: center;
+        }
+
+        .bp-levels-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .bp-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .bp-info h4 {
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        .bp-info p {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .btn-claim {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: #0f172a;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-claim.owned {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            cursor: default;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        .form-group input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-pay {
+            background: linear-gradient(135deg, #ff3366, #ff6b8b);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.4);
+        }
+
+        .btn-troll {
+            background: rgba(255, 255, 255, 0.1);
+            color: #facc15;
+            border: 1px solid #facc15;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .instructions {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: #64748b;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Anuncios en las esquinas -->
+    <div class="corner-ad top-left" id="adTopLeft">
+        <div class="ad-title">📢 ¡Publicidad Molesta!</div>
+        <div class="ad-banner-box">¡Compra Licuadoras Chimbas Ya!</div>
+        <button class="btn-remove-ad" onclick="openAdModal('top-left')">Quitar Anuncio</button>
+    </div>
+
+    <div class="corner-ad top-right" id="adTopRight">
+        <div class="ad-title">📢 ¡Patrocinador Oficial!</div>
+        <div class="ad-banner-box">¡Hazte millonario con cripto!</div>
+        <button class="btn-remove-ad" onclick="openAdModal('top-right')">Quitar Anuncio</button>
+    </div>
+
+    <div class="corner-ad bottom-left" id="adBottomLeft">
+        <div class="ad-title">📢 ¡Oportunidad Única!</div>
+        <div class="ad-banner-box">¡Cursos de Robótica express!</div>
+        <button class="btn-remove-ad" onclick="openAdModal('bottom-left')">Quitar Anuncio</button>
+    </div>
+
+    <div class="corner-ad bottom-right" id="adBottomRight">
+        <div class="ad-title">📢 ¡Atención Usuario!</div>
+        <div class="ad-banner-box">¡Repara tu licuadora hoy!</div>
+        <button class="btn-remove-ad" onclick="openAdModal('bottom-right')">Quitar Anuncio</button>
+    </div>
+
+    <header-area>
+        <h1>Licuadora Inteligente Azul</h1>
+        <div class="counter-badge" id="counterBadge">Batidos gratis restantes: 3 / 3</div>
+        <button class="battle-pass-btn" onclick="openBattlePass()">⭐ Abrir Pase de Batalla (Skins & Efectos)</button>
+        <div class="subtitle">¡Toca el vaso del robot cuando esté listo tu batido!</div>
+    </header-area>
+
+    <div class="app-container" id="appContainer">
+        <!-- Panel de Ingredientes y Control -->
+        <div class="control-panel">
+            <div class="section-title">1. Añadir Ingredientes</div>
+            <div class="ingredients-grid">
+                <button class="ingredient-btn" onclick="addIngredient('fresa', '🍓', '#ff3366', 15)">
+                    <span class="ingredient-icon">🍓</span> Fresa
+                </button>
+                <button class="ingredient-btn" onclick="addIngredient('banano', '🍌', '#fde047', 15)">
+                    <span class="ingredient-icon">🍌</span> Banano
+                </button>
+                <button class="ingredient-btn" onclick="addIngredient('kiwi', '🥝', '#4ade80', 15)">
+                    <span class="ingredient-icon">🥝</span> Kiwi
+                </button>
+                <button class="ingredient-btn" onclick="addIngredient('arandano', '🫐', '#6366f1', 15)">
+                    <span class="ingredient-icon">🫐</span> Arándano
+                </button>
+                <button class="ingredient-btn" onclick="addIngredient('hielo', '🧊', '#e0f2fe', 12)">
+                    <span class="ingredient-icon">🧊</span> Hielo
+                </button>
+                <button class="ingredient-btn" onclick="addIngredient('agua', '💧', '#38bdf8', 20)">
+                    <span class="ingredient-icon">💧</span> Agua / Base
+                </button>
+            </div>
+
+            <div class="section-title">2. Velocidad de Licuado</div>
+            <div class="speed-controls">
+                <button class="speed-btn active" id="spd-1" onclick="setSpeed(1)">Suave</button>
+                <button class="speed-btn" id="spd-2" onclick="setSpeed(2)">Medio</button>
+                <button class="speed-btn" id="spd-3" onclick="setSpeed(3)">Turbo</button>
+            </div>
+
+            <div class="action-buttons" style="margin-top: 5px;">
+                <button class="btn btn-blend" id="blendBtn" onclick="toggleBlend()">Encender</button>
+                <button class="btn btn-clear" onclick="clearBlender()">Vaciar</button>
+            </div>
+            
+            <div class="instructions">💡 3 batidos gratis incluidos. Toca el vaso del robot para servir.</div>
+        </div>
+
+        <!-- Área de Trabajo: Licuadora y Robot -->
+        <div class="workspace">
+            <div class="blender-station">
+                <div class="smoke"></div>
+                <div class="blender-jar-container">
+                    <div class="jar-lid" id="skinJarLid">
+                        <div class="lid-cap"></div>
+                    </div>
+                    <div class="jar-body" id="jarBody">
+                        <div class="jar-handle"></div>
+                        <div class="jar-contents" id="jarContents"></div>
+                        <div class="blender-blades" id="blenderBlades">
+                            <div class="blade" id="skinBlade"></div>
+                            <div class="vortex"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="blender-base" id="skinBlenderBase">
+                    <div class="base-stripe" id="skinBaseStripe"></div>
+                    <div class="power-dial" id="powerDial" onclick="toggleBlend()"></div>
+                </div>
+            </div>
+
+            <!-- Muñequito Robot -->
+            <div class="robot-container" id="robotContainer">
+                <div class="speech-bubble" id="speechBubble">¡Listo para servir!</div>
+                <div class="robot-head" id="skinRobotHead">
+                    <div class="robot-antenna"></div>
+                    <div class="robot-eyes">
+                        <div class="robot-eye" id="skinRobotEye1"></div>
+                        <div class="robot-eye" id="skinRobotEye2"></div>
+                    </div>
+                </div>
+                <div class="robot-body" id="skinRobotBody">
+                    <div class="robot-arm left" id="skinRobotArm1"></div>
+                    <div class="robot-chest-screen"></div>
+                    <div class="robot-arm right" id="skinRobotArm2"></div>
+                    <div class="robot-cup" onclick="pourSmoothie()" title="Haz clic para servir el vaso">
+                        <div class="robot-poured-liquid" id="robotPouredLiquid"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para quitar el anuncio (con opciones troll para rechochar) -->
+    <div class="modal-overlay" id="adRemoveModal">
+        <div class="ad-remove-modal">
+            <div class="modal-title">🚫 ¿Quieres quitar este anuncio?</div>
+            <div class="modal-desc" id="adModalDesc">Elige cómo deseas proceder con este banner publicitario:</div>
+            
+            <button class="btn-pay" onclick="payToRemoveAd()">Pagar para quitar anuncio ($15,000 COP)</button>
+            <button class="btn-troll" onclick="trollOption('¡Pagaste 2 veces! Pero igual el anuncio sigue aquí. ¡A rechochar!')">Paga 2 veces</button>
+            <button class="btn-troll" onclick="trollOption('¡Completaste la encuesta falsa! Pero la publicidad es eterna. ¡JAJA!')">Pagar con la encuesta</button>
+            <button class="close-btn" onclick="closeAdModal()">Cancelar (Dejar el anuncio)</button>
+        </div>
+    </div>
+
+    <!-- Modal del Pase de Batalla -->
+    <div class="modal-overlay" id="battlePassModal">
+        <div class="battlepass-modal">
+            <div class="modal-title">⭐ Pase de Batalla: Skins & Efectos</div>
+            <div class="modal-desc">Desbloquea aspectos legendarios por $300,000 COP cada uno:</div>
+            
+            <div class="bp-levels-list">
+                <div class="bp-item">
+                    <div class="bp-info">
+                        <h4>Nivel 1: Cyber Neon Azul</h4>
+                        <p>Tonos eléctricos y neón brillante. ($300,000 COP)</p>
+                    </div>
+                    <button class="btn-claim" id="btnSkin1" onclick="buySkin(1)">Desbloquear</button>
+                </div>
+                <div class="bp-item">
+                    <div class="bp-info">
+                        <h4>Nivel 2: Oro Real / Dorado</h4>
+                        <p>Licuadora y robot chapados en oro puro. ($300,000 COP)</p>
+                    </div>
+                    <button class="btn-claim" id="btnSkin2" onclick="buySkin(2)">Desbloquear</button>
+                </div>
+                <div class="bp-item">
+                    <div class="bp-info">
+                        <h4>Nivel 3: Magma Volcánico</h4>
+                        <p>Efectos de fuego con tonos intensos. ($300,000 COP)</p>
+                    </div>
+                    <button class="btn-claim" id="btnSkin3" onclick="buySkin(3)">Desbloquear</button>
+                </div>
+                <div class="bp-item">
+                    <div class="bp-info">
+                        <h4>Nivel 4: Esmeralda Galáctica</h4>
+                        <p>Cristal oscuro y luces verdes alienígenas. ($300,000 COP)</p>
+                    </div>
+                    <button class="btn-claim" id="btnSkin4" onclick="buySkin(4)">Desbloquear</button>
+                </div>
+            </div>
+
+            <button class="close-btn" onclick="closeBattlePass()">Cerrar Pase</button>
+        </div>
+    </div>
+
+    <!-- Modal de Tarjeta de Crédito General -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="payment-modal">
+            <div class="modal-title" id="paymentModalTitle">💳 Pasarela de Pago</div>
+            <div class="modal-desc" id="paymentModalDesc">Ingresa los datos de tu tarjeta para procesar el pago:</div>
+            
+            <div class="form-group">
+                <label>Nombre del Propietario</label>
+                <input type="text" id="cardName" placeholder="Ej. Juan Pérez">
+            </div>
+
+            <div class="form-group">
+                <label>Número de Tarjeta</label>
+                <input type="text" id="cardNumber" placeholder="xxxx-xxxx-xxxx-xxxx" maxlength="19">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group" style="flex: 1;">
+                    <label>Fecha de Vencimiento</label>
+                    <input type="text" id="cardExp" placeholder="MM/AA" maxlength="5">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>CVV</label>
+                    <input type="password" id="cardCvv" placeholder="123" maxlength="4">
+                </div>
+            </div>
+
+            <button class="btn-pay" id="confirmPayBtn" onclick="processPayment()">Confirmar Pago</button>
+            <button class="close-btn" onclick="closePaymentModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        let ingredientsList = [];
+        let isBlending = false;
+        let isBlended = false;
+        let isOverheated = false;
+        let currentSpeed = 1;
+        let blendedColor = 'rgba(51, 153, 255, 0.6)';
+        let audioCtx = null;
+        let oscillator = null;
+        let gainNode = null;
+
+        // Control de batidos gratis (Límite 3)
+        let smoothiesRemaining = 3;
+        let isSmoothieLocked = false;
+
+        // Skins & Anuncios
+        let unlockedSkins = { 1: false, 2: false, 3: false, 4: false };
+        let currentSkinActive = 0;
+        let pendingSkinLevel = null;
+        let isRepairMode = false;
+        let isBatchPurchaseMode = false;
+        let currentAdTarget = null;
+
+        const jarContents = document.getElementById('jarContents');
+        const blenderBlades = document.getElementById('blenderBlades');
+        const powerDial = document.getElementById('powerDial');
+        const blendBtn = document.getElementById('blendBtn');
+        const robotPouredLiquid = document.getElementById('robotPouredLiquid');
+        const robotContainer = document.getElementById('robotContainer');
+        const appContainer = document.getElementById('appContainer');
+        const paymentModal = document.getElementById('paymentModal');
+        const battlePassModal = document.getElementById('battlePassModal');
+        const adRemoveModal = document.getElementById('adRemoveModal');
+        const counterBadge = document.getElementById('counterBadge');
+
+        // Inicializar intervalo de anuncios cada 1 minuto (60000 ms)
+        setInterval(() => {
+            triggerRandomAd();
+        }, 60000);
+
+        function triggerRandomAd() {
+            const adIds = ['adTopLeft', 'adTopRight', 'adBottomLeft', 'adBottomRight'];
+            const hiddenAds = adIds.filter(id => document.getElementById(id).style.display !== 'flex');
+            if (hiddenAds.length > 0) {
+                const randomId = hiddenAds[Math.floor(Math.random() * hiddenAds.length)];
+                document.getElementById(randomId).style.display = 'flex';
+            }
+        }
+
+        function openAdModal(adId) {
+            currentAdTarget = adId;
+            adRemoveModal.classList.add('active');
+        }
+
+        function closeAdModal() {
+            adRemoveModal.classList.remove('active');
+            currentAdTarget = null;
+        }
+
+        function payToRemoveAd() {
+            closeAdModal();
+            isRepairMode = false;
+            isBatchPurchaseMode = false;
+            pendingSkinLevel = null;
+            document.getElementById('paymentModalTitle').textContent = '💳 Quitar Anuncio ($15,000 COP)';
+            document.getElementById('paymentModalDesc').textContent = 'Paga $15,000 COP para eliminar este molesto anuncio de la esquina:';
+            document.getElementById('confirmPayBtn').textContent = 'Pagar $15,000 COP';
+            paymentModal.classList.add('active');
+        }
+
+        function trollOption(message) {
+            closeAdModal();
+            alert(message);
+        }
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function startMotorSound(overheat = false) {
+            initAudio();
+            if (oscillator) return;
+
+            oscillator = audioCtx.createOscillator();
+            gainNode = audioCtx.createGain();
+
+            oscillator.type = overheat ? 'square' : 'sawtooth';
+            updateMotorFrequency(overheat);
+
+            gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.start();
+        }
+
+        function updateMotorFrequency(overheat = false) {
+            if (!oscillator) return;
+            if (overheat) {
+                oscillator.frequency.setValueAtTime(300, audioCtx.currentTime);
+            } else {
+                const freqs = { 1: 90, 2: 130, 3: 175 };
+                oscillator.frequency.setValueAtTime(freqs[currentSpeed], audioCtx.currentTime);
+            }
+        }
+
+        function stopMotorSound() {
+            if (oscillator) {
+                oscillator.stop();
+                oscillator.disconnect();
+                oscillator = null;
+                gainNode = null;
+            }
+        }
+
+        function setSpeed(speed) {
+            if (isOverheated) return;
+            currentSpeed = speed;
+            document.querySelectorAll('.speed-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`spd-${speed}`).classList.add('active');
+            updateMotorFrequency();
+        }
+
+        function addIngredient(name, emoji, color, heightPercent) {
+            if (isOverheated || isSmoothieLocked) return;
+
+            if (isBlended) {
+                clearBlender();
+            }
+            
+            ingredientsList.push({ name, emoji, color, heightPercent });
+            renderJar();
+
+            if (ingredientsList.length >= 5) {
+                triggerOverheat();
+            }
+        }
+
+        function triggerOverheat() {
+            isOverheated = true;
+            isBlending = false;
+            blenderBlades.classList.remove('spinning');
+            powerDial.classList.remove('on');
+            
+            appContainer.classList.add('overheated');
+            startMotorSound(true);
+
+            setTimeout(() => {
+                stopMotorSound();
+                openRepairPayment();
+            }, 1000);
+        }
+
+        function openRepairPayment() {
+            isRepairMode = true;
+            isBatchPurchaseMode = false;
+            document.getElementById('paymentModalTitle').textContent = '🔥 ¡Motor Sobrecalentado!';
+            document.getElementById('paymentModalDesc').textContent = 'Paga la reparación ($300,000 COP) para desbloquear la licuadora:';
+            document.getElementById('confirmPayBtn').textContent = 'Pagar Reparación';
+            paymentModal.classList.add('active');
+        }
+
+        function openSmoothiePayment() {
+            isBatchPurchaseMode = true;
+            isRepairMode = false;
+            document.getElementById('paymentModalTitle').textContent = '🥤 ¡Batidos Gratis Agotados!';
+            document.getElementById('paymentModalDesc').textContent = '¡Los batidos gratis se acabaron! Paga $150,000 COP para poder servir 3 batidos más:';
+            document.getElementById('confirmPayBtn').textContent = 'Pagar $150,000 COP';
+            paymentModal.classList.add('active');
+        }
+
+        function renderJar() {
+            jarContents.innerHTML = '';
+            let totalHeight = 0;
+
+            ingredientsList.forEach((item) => {
+                totalHeight += item.heightPercent;
+                if (totalHeight > 95) totalHeight = 95;
+
+                const div = document.createElement('div');
+                div.className = 'stacked-item';
+                div.style.backgroundColor = item.color;
+                div.style.color = (item.name === 'banano' || item.name === 'hielo') ? '#333' : '#fff';
+                div.innerHTML = `${item.emoji} ${item.name.toUpperCase()}`;
+                jarContents.appendChild(div);
+            });
+
+            jarContents.style.height = totalHeight + '%';
+        }
+
+        function toggleBlend() {
+            if (isOverheated) {
+                paymentModal.classList.add('active');
+                return;
+            }
+
+            if (ingredientsList.length === 0 && !isBlended) {
+                alert('¡Añade algunos ingredientes primero!');
+                return;
+            }
+
+            isBlending = !isBlending;
+
+            if (isBlending) {
+                blenderBlades.classList.add('spinning');
+                powerDial.classList.add('on');
+                blendBtn.textContent = 'Detener';
+                startMotorSound();
+
+                setTimeout(() => {
+                    if (isBlending && !isOverheated) {
+                        processBlending();
+                    }
+                }, 2500);
+
+            } else {
+                blenderBlades.classList.remove('spinning');
+                powerDial.classList.remove('on');
+                blendBtn.textContent = 'Encender';
+                stopMotorSound();
+            }
+        }
+
+        function processBlending() {
+            isBlended = true;
+            let r = 0, g = 0, b = 0, count = ingredientsList.length;
+            ingredientsList.forEach(item => {
+                let rgb = hexToRgb(item.color);
+                if (rgb) { r += rgb.r; g += rgb.g; b += rgb.b; }
+            });
+
+            if (count > 0) {
+                blendedColor = `rgba(${Math.floor(r/count)}, ${Math.floor(g/count)}, ${Math.floor(b/count)}, 0.85)`;
+            }
+
+            jarContents.innerHTML = '';
+            jarContents.style.backgroundColor = blendedColor;
+            
+            const vortexDiv = document.createElement('div');
+            vortexDiv.className = 'vortex';
+            vortexDiv.style.display = 'block';
+            jarContents.appendChild(vortexDiv);
+        }
+
+        function hexToRgb(hex) {
+            let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+            hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+            let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16) } : null;
+        }
+
+        function clearBlender() {
+            if (isOverheated) return;
+            isBlending = false;
+            isBlended = false;
+            ingredientsList = [];
+            blenderBlades.classList.remove('spinning');
+            powerDial.classList.remove('on');
+            blendBtn.textContent = 'Encender';
+            stopMotorSound();
+            jarContents.style.height = '0%';
+            jarContents.style.backgroundColor = 'transparent';
+            jarContents.innerHTML = '';
+            robotPouredLiquid.style.height = '0%';
+            robotContainer.classList.remove('talking');
+        }
+
+        function openBattlePass() {
+            battlePassModal.classList.add('active');
+        }
+
+        function closeBattlePass() {
+            battlePassModal.classList.remove('active');
+        }
+
+        function closePaymentModal() {
+            paymentModal.classList.remove('active');
+        }
+
+        function buySkin(level) {
+            if (unlockedSkins[level]) {
+                applySkin(level);
+                closeBattlePass();
+                return;
+            }
+
+            pendingSkinLevel = level;
+            isRepairMode = false;
+            isBatchPurchaseMode = false;
+            currentAdTarget = null;
+            document.getElementById('paymentModalTitle').textContent = '💳 Comprar Pase de Batalla ($300,000 COP)';
+            document.getElementById('paymentModalDesc').textContent = `Ingresa los datos para adquirir la Skin Nivel ${level} por $300,000 COP:`;
+            document.getElementById('confirmPayBtn').textContent = 'Pagar $300,000 COP';
+            
+            closeBattlePass();
+            paymentModal.classList.add('active');
+        }
+
+        function processPayment() {
+            const name = document.getElementById('cardName').value.trim();
+            const number = document.getElementById('cardNumber').value.trim();
+            const exp = document.getElementById('cardExp').value.trim();
+            const cvv = document.getElementById('cardCvv').value.trim();
+
+            if (!name || !number || !exp || !cvv) {
+                alert('Por favor completa todos los campos de la tarjeta.');
+                return;
+            }
+
+            paymentModal.classList.remove('active');
+
+            if (isRepairMode) {
+                appContainer.classList.remove('overheated');
+                isOverheated = false;
+                clearBlender();
+                alert('¡Pago exitoso! La licuadora ha sido reparada.');
+            } else if (isBatchPurchaseMode) {
+                smoothiesRemaining = 3;
+                isSmoothieLocked = false;
+                counterBadge.textContent = `Batidos gratis restantes: 3 / 3`;
+                isBatchPurchaseMode = false;
+                alert('¡Pago de $150,000 COP exitoso! Has adquirido 3 batidos nuevos para servir.');
+            } else if (currentAdTarget !== null) {
+                document.getElementById(currentAdTarget).style.display = 'none';
+                alert('¡Pago exitoso! Anuncio eliminado.');
+                currentAdTarget = null;
+            } else if (pendingSkinLevel !== null) {
+                unlockedSkins[pendingSkinLevel] = true;
+                const btn = document.getElementById(`btnSkin${pendingSkinLevel}`);
+                btn.textContent = 'Equipado';
+                btn.classList.add('owned');
+                
+                applySkin(pendingSkinLevel);
+                alert(`¡Pago de $300,000 COP exitoso! Skin Nivel ${pendingSkinLevel} desbloqueada y equipada.`);
+                pendingSkinLevel = null;
+            }
+        }
+
+        function applySkin(level) {
+            currentSkinActive = level;
+            const baseStripe = document.getElementById('skinBaseStripe');
+            const base = document.getElementById('skinBlenderBase');
+            const lid = document.getElementById('skinJarLid');
+            const robotHead = document.getElementById('skinRobotHead');
+            const robotBody = document.getElementById('skinRobotBody');
+            const robotArm1 = document.getElementById('skinRobotArm1');
+            const robotArm2 = document.getElementById('skinRobotArm2');
+            const eye1 = document.getElementById('skinRobotEye1');
+            const eye2 = document.getElementById('skinRobotEye2');
+
+            document.querySelectorAll('.bp-item .btn-claim').forEach((b, idx) => {
+                if (unlockedSkins[idx + 1]) {
+                    b.textContent = (currentSkinActive === idx + 1) ? 'Equipado' : 'Equipar';
+                }
+            });
+
+            if (level === 1) {
+                base.style.background = 'linear-gradient(135deg, #0284c7, #0f172a)';
+                base.style.borderColor = '#38bdf8';
+                baseStripe.style.background = '#38bdf8';
+                baseStripe.style.boxShadow = '0 0 15px #38bdf8';
+                lid.style.background = 'linear-gradient(90deg, #0284c7, #38bdf8, #0284c7)';
+                robotHead.style.background = 'linear-gradient(135deg, #38bdf8, #0284c7)';
+                robotBody.style.background = 'linear-gradient(135deg, #0284c7, #0f172a)';
+                robotArm1.style.background = '#38bdf8';
+                robotArm2.style.background = '#38bdf8';
+                eye1.style.background = '#ffffff';
+                eye2.style.background = '#ffffff';
+            } else if (level === 2) {
+                base.style.background = 'linear-gradient(135deg, #ca8a04, #713f12)';
+                base.style.borderColor = '#facc15';
+                baseStripe.style.background = '#facc15';
+                baseStripe.style.boxShadow = '0 0 20px #facc15';
+                lid.style.background = 'linear-gradient(90deg, #ca8a04, #facc15, #ca8a04)';
+                robotHead.style.background = 'linear-gradient(135deg, #facc15, #ca8a04)';
+                robotBody.style.background = 'linear-gradient(135deg, #854d0e, #422006)';
+                robotArm1.style.background = '#facc15';
+                robotArm2.style.background = '#facc15';
+                eye1.style.background = '#ff0000';
+                eye2.style.background = '#ff0000';
+            } else if (level === 3) {
+                base.style.background = 'linear-gradient(135deg, #dc2626, #450a0a)';
+                base.style.borderColor = '#f97316';
+                baseStripe.style.background = '#f97316';
+                baseStripe.style.boxShadow = '0 0 20px #ef4444';
+                lid.style.background = 'linear-gradient(90deg, #991b1b, #dc2626, #991b1b)';
+                robotHead.style.background = 'linear-gradient(135deg, #ef4444, #991b1b)';
+                robotBody.style.background = 'linear-gradient(135deg, #7f1d1d, #1f2937)';
+                robotArm1.style.background = '#f97316';
+                robotArm2.style.background = '#f97316';
+                eye1.style.background = '#facc15';
+                eye2.style.background = '#facc15';
+            } else if (level === 4) {
+                base.style.background = 'linear-gradient(135deg, #059669, #022c22)';
+                base.style.borderColor = '#34d399';
+                baseStripe.style.background = '#34d399';
+                baseStripe.style.boxShadow = '0 0 20px #10b981';
+                lid.style.background = 'linear-gradient(90deg, #047857, #34d399, #047857)';
+                robotHead.style.background = 'linear-gradient(135deg, #10b981, #047857)';
+                robotBody.style.background = 'linear-gradient(135deg, #064e3b, #0f172a)';
+                robotArm1.style.background = '#34d399';
+                robotArm2.style.background = '#34d399';
+                eye1.style.background = '#38bdf8';
+                eye2.style.background = '#38bdf8';
+            }
+        }
+
+        function pourSmoothie() {
+            if (!isBlended || isOverheated) {
+                alert('¡Primero debes licuar los ingredientes!');
+                return;
+            }
+
+            // Si se acabaron los batidos gratis, abrir directamente la pasarela de pago al tocar el vaso
+            if (isSmoothieLocked || smoothiesRemaining <= 0) {
+                isSmoothieLocked = true;
+                openSmoothiePayment();
+                return;
+            }
+
+            robotPouredLiquid.style.backgroundColor = blendedColor;
+            robotPouredLiquid.style.height = '85%';
+
+            jarContents.style.height = '20%';
+            setTimeout(() => {
+                jarContents.style.height = '0%';
+            }, 1000);
+
+            robotContainer.classList.add('talking');
+
+            // Restar un batido gratis
+            smoothiesRemaining--;
+            if (smoothiesRemaining > 0) {
+                counterBadge.textContent = `Batidos gratis restantes: ${smoothiesRemaining} / 3`;
+            } else {
+                counterBadge.textContent = `¡Batidos gratis agotados!`;
+                isSmoothieLocked = true;
+            }
+        }
+    </script>
+</body>
+</html>
+licu.html
+Mostrando licu.html
